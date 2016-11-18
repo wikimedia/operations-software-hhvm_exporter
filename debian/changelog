@@ -1,0 +1,5 @@
+prometheus-hhvm-exporter (0.1-1) unstable; urgency=low
+
+  * Initial packaging
+
+ -- Filippo Giunchedi <filippo@wikimedia.org>  Fri, 18 Nov 2016 00:53:36 +0000

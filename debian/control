@@ -1,0 +1,19 @@
+Source: prometheus-hhvm-exporter
+Maintainer: Filippo Giunchedi <filippo@wikimedia.org>
+Section: python
+Priority: optional
+Build-Depends: debhelper (>= 9),
+  dh-python,
+  dh-systemd,
+  python3-setuptools (>= 0.6b3),
+  python3-all,
+  python3-nose,
+  python3-prometheus-client,
+  python3-requests
+Standards-Version: 3.9.8
+
+Package: prometheus-hhvm-exporter
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Prometheus exporter for HHVM
+
