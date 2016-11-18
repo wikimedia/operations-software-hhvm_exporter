@@ -15,7 +15,7 @@
 
 import unittest
 
-from hhvm_exporter import HHVMCollector
+from hhvm_exporter.exporter import HHVMCollector
 
 
 class TestHHVMCollector(unittest.TestCase):

@@ -7,13 +7,14 @@ setup(name='hhvm_exporter',
       author='Filippo Giunchedi',
       author_email='filippo@wikimedia.org',
       license='Apache License, Version 2.0',
+      packages=['hhvm_exporter'],
       install_requires=[
           'prometheus-client',
           'requests',
       ],
       entry_points={
           'console_scripts': [
-              'hhvm_exporter = hhvm_exporter:main'
+              'hhvm_exporter = hhvm_exporter.exporter:main'
           ]
       },
 )
