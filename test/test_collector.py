@@ -31,7 +31,7 @@ class TestHHVMCollector(unittest.TestCase):
         expected_names = [
             'hhvm_memory_strings_count', 'hhvm_process_memory_bytes',
             'hhvm_memory_strings_bytes', 'hhvm_memory_success',
-            'hhvm_tc_used_bytes', 'hhvm_process_memory_size_bytes']
+            'hhvm_process_memory_size_bytes']
         self.assertMetricEqual(
             [x.name for x in self.c._collect_memory({})], expected_names)
 
