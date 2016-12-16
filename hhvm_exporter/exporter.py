@@ -129,8 +129,6 @@ class HHVMCollector(object):
            'strings_bytes': GaugeMetricFamily(
                    'hhvm_memory_strings_bytes',
                    'Static strings total bytes used'),
-           'tc_used': GaugeMetricFamily(
-                   'hhvm_tc_used_bytes', 'TC used bytes', labels=['block']),
         }
 
         memorym = data.get('Memory', {})
