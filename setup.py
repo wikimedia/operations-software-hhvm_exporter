@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='hhvm_exporter',
-      version='0.1',
+      version='0.2',
       description='Prometheus exporter for HHVM',
       url='https://github.com/wikimedia/operations-software-hhvm_exporter',
       author='Filippo Giunchedi',

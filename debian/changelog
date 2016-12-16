@@ -1,3 +1,9 @@
+prometheus-hhvm-exporter (0.2-1) unstable; urgency=low
+
+  * Fix duplicate 'hhvm_tc_used_bytes'
+
+ -- Filippo Giunchedi <filippo@wikimedia.org>  Thu, 15 Dec 2016 01:38:36 +0000
+
 prometheus-hhvm-exporter (0.1-1) unstable; urgency=low
 
   * Initial packaging
