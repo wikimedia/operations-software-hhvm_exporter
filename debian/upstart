@@ -1,0 +1,16 @@
+description "Prometheus exporter for HHVM"
+
+start on (local-filesystems and net-device-up IFACE!=lo)
+stop on [!12345]
+
+setuid prometheus
+
+respawn
+
+# required: $HOME isn't set despite setuid
+chdir /var/lib/prometheus
+
+script
+    . /etc/default/prometheus-hhvm-exporter
+    exec /usr/bin/prometheus-hhvm-exporter $ARGS
+end script

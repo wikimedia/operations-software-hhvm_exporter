@@ -1,3 +1,9 @@
+prometheus-hhvm-exporter (0.2-2~trusty1) trusty-wikimedia; urgency=medium
+
+  * Trusty compatibility, replace sysv/systemd with upstart
+
+ -- Filippo Giunchedi <filippo@wikimedia.org>  Mon, 19 Dec 2016 21:50:46 +0000
+
 prometheus-hhvm-exporter (0.2-1) unstable; urgency=low
 
   * Fix duplicate 'hhvm_tc_used_bytes'
