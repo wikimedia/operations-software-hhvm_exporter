@@ -192,7 +192,7 @@ def main():
     if args.debug:
         logging.basicConfig(level=logging.DEBUG)
     else:
-        logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(level=logging.WARNING)
 
     address, port = args.listen.split(':', 1)
 
