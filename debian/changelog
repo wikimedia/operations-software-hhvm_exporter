@@ -1,3 +1,15 @@
+prometheus-hhvm-exporter (0.3-1~trusty1) unstable; urgency=low
+
+  * Trusty compatibility
+
+ -- Filippo Giunchedi <filippo@wikimedia.org>  Sat, 20 May 2017 12:52:48 +0200
+
+prometheus-hhvm-exporter (0.3-1) unstable; urgency=low
+
+  * Raise default logging level to WARNING
+
+ -- Filippo Giunchedi <filippo@wikimedia.org>  Sat, 20 May 2017 12:41:43 +0200
+
 prometheus-hhvm-exporter (0.2-2~trusty1) trusty-wikimedia; urgency=medium
 
   * Trusty compatibility, replace sysv/systemd with upstart
