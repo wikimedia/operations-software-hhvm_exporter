@@ -16,6 +16,7 @@
 import argparse
 import datetime
 import logging
+import re
 import sys
 import time
 
@@ -36,10 +37,22 @@ class HHVMCollector(object):
         self.url = admin_url
 
     def _fetch_json(self, url):
+        response = self._fetch_url(url)
+        if response is not None:
+            return response.json()
+        return response
+
+    def _fetch_text(self, url):
+        response = self._fetch_url(url)
+        if response is not None:
+            return response.text
+        return response
+
+    def _fetch_url(self, url):
         try:
             response = requests.get(url, timeout=2)
             response.raise_for_status()
-            return response.json()
+            return response
         except (requests.ConnectionError,
                 requests.Timeout,
                 requests.HTTPError,
@@ -60,6 +73,10 @@ class HHVMCollector(object):
         for metric in self._collect_status(status_data):
             yield metric
 
+        apc_info = self._fetch_text(self.url + '/dump-apc-info')
+        for metric in self._collect_apc(apc_info):
+            yield metric
+
         up = GaugeMetricFamily('hhvm_up', 'HHVM admin interface is up')
         if not all([status_data, memory_data, health_data]):
             up.add_metric([], 0)
@@ -67,6 +84,54 @@ class HHVMCollector(object):
             up.add_metric([], 1)
 
         yield up
+
+    def _collect_apc(self, data):
+        if data is None:
+            raise StopIteration()
+
+        metrics = {
+            'value_size': GaugeMetricFamily('hhvm_apc_value_bytes',
+                                            'Memory usage from all live values'),
+            'key_size': GaugeMetricFamily('hhvm_apc_key_bytes',
+                                          'Memory usage from all keys'),
+            'mapped_to_file_data_size': GaugeMetricFamily(
+                                        'hhvm_apc_mmap_bytes',
+                                        'Bytes stored in the paged out memory file'),
+            'in_memory_primed_data_size': GaugeMetricFamily(
+                                        'hhvm_apc_memory_primed_bytes',
+                                        'Bytes that were primed and went into memory'),
+
+            'entries_count': GaugeMetricFamily('hhvm_apc_key_count',
+                                               'Number of keys (entries)'),
+            'primed_entries_count': GaugeMetricFamily('hhvm_apc_key_primed_count',
+                                                      'Number of primed keys'),
+            'in_memory_primed_entries_count': GaugeMetricFamily(
+                                              'hhvm_apc_key_primed_memory_count',
+                                              'Number of primed keys live (in memory)'),
+            'pending_deletes_via_treadmill_size': GaugeMetricFamily(
+                                                  'hhvm_apc_pending_delete_bytes',
+                                                  'Bytes pending deletion via treadmill'),
+        }
+
+        for line in data.splitlines():
+            if ':' not in line:
+                continue
+            key, value = re.split(': *', line, 1)
+            metric_name = key.lower().replace(' ', '_')
+
+            metric_family = metrics.get(metric_name)
+            if metric_name is None:
+                log.warn('Unknown metric %r from line %r', metric_name, line)
+                continue
+
+            try:
+                value = float(value)
+            except ValueError:
+                value = float('nan')
+            metric_family.add_metric([], value)
+
+        for metric in metrics.values():
+            yield metric
 
     def _collect_health(self, data):
         if data is None:

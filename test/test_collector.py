@@ -44,5 +44,15 @@ class TestHHVMCollector(unittest.TestCase):
         self.assertMetricEqual(
             [x.name for x in self.c._collect_health({})], expected_names)
 
+    def testCollectAPC(self):
+        expected_names = [
+            'hhvm_apc_value_bytes', 'hhvm_apc_key_bytes',
+            'hhvm_apc_mmap_bytes', 'hhvm_apc_memory_primed_bytes',
+            'hhvm_apc_key_count', 'hhvm_apc_key_primed_count',
+            'hhvm_apc_key_primed_memory_count',
+            'hhvm_apc_pending_delete_bytes']
+        self.assertMetricEqual(
+            [x.name for x in self.c._collect_apc('')], expected_names)
+
     def assertMetricEqual(self, actual, expected):
         return self.assertListEqual(sorted(actual), sorted(expected))
