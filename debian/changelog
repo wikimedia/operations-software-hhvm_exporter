@@ -1,3 +1,9 @@
+prometheus-hhvm-exporter (0.4-1) unstable; urgency=medium
+
+  * Export APC metrics
+
+ -- Filippo Giunchedi <filippo@debian.org>  Thu, 19 Oct 2017 10:59:02 +0200
+
 prometheus-hhvm-exporter (0.3-1) unstable; urgency=low
 
   * Raise default logging level to WARNING
