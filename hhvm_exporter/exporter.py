@@ -249,7 +249,7 @@ def main():
     parser.add_argument('--admin-url', metavar='URL', help='HHVM admin url',
                         default='http://localhost:9002')
     parser.add_argument('-l', '--listen', metavar='ADDRESS',
-                        help='Listen on this address', default=':9192')
+                        help='Listen on this address', default=':9406')
     parser.add_argument('-d', '--debug', action='store_true',
                         help='Enable debug logging')
     args = parser.parse_args()
